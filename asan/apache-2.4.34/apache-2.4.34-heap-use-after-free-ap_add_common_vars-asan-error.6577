@@ -1,0 +1,145 @@
+=================================================================
+==6577==ERROR: AddressSanitizer: heap-use-after-free on address 0x61900023e188 at pc 0x7f4ebdf454e5 bp 0x7f4e8c3d5180 sp 0x7f4e8c3d5170
+READ of size 4 at 0x61900023e188 thread T51
+    #0 0x7f4ebdf454e4 in pool_find memory/unix/apr_pools.c:1961
+    #1 0x7f4ebdf45a7b in apr_pool_walk_tree memory/unix/apr_pools.c:1219
+    #2 0x7f4ebdf45b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #3 0x7f4ebdf45b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #4 0x7f4ebdf45b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #5 0x7f4ebdf45b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #6 0x7f4ebdf45b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #7 0x7f4ebdf45b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #8 0x7f4ebdf45b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #9 0x7f4ebdf48672 in apr_pool_find memory/unix/apr_pools.c:1979
+    #10 0x7f4ebdf34151 in apr_table_addn tables/apr_tables.c:819
+    #11 0x4c059f in ap_add_common_vars /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/util_script.c:260
+    #12 0x533e5d in includes_filter /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3903
+    #13 0x45b96f in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/util_filter.c:609
+    #14 0x6ee3c5 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/mappers/mod_negotiation.c:3048
+    #15 0x4accf3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:170
+    #16 0x4ad880 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:444
+    #17 0x56752b in ap_internal_redirect /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_request.c:791
+    #18 0x567b55 in ap_die_r /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_request.c:212
+    #19 0x46c6bf in ap_read_request /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/protocol.c:1339
+    #20 0x55f42e in ap_process_http_async_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_core.c:146
+    #21 0x55f42e in ap_process_http_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_core.c:248
+    #22 0x4c6c73 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/connection.c:42
+    #23 0x71124d in process_socket /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:1048
+    #24 0x714a7f in worker_thread /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2122
+    #25 0x7f4ebd6a46f9 in start_thread (/lib64/libpthread.so.0+0x76f9)
+    #26 0x7f4ebd1d4d7e in clone (/lib64/libc.so.6+0x100d7e)
+
+0x61900023e188 is located 8 bytes inside of 1040-byte region [0x61900023e180,0x61900023e590)
+freed by thread T50 here:
+    #0 0x7f4ec01cd4e1 in __interceptor_free (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x574e1)
+    #1 0x7f4ebdf466e8 in pool_clear_debug memory/unix/apr_pools.c:1580
+    #2 0x7f4ebdf47887 in apr_pool_clear_debug memory/unix/apr_pools.c:1613
+    #3 0x53129a in send_parsed_content /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3736
+    #4 0x53129a in includes_filter /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3966
+    #5 0x45b96f in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/util_filter.c:609
+    #6 0x6ee3c5 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/mappers/mod_negotiation.c:3048
+    #7 0x4accf3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:170
+    #8 0x4ad880 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:444
+    #9 0x49b917 in ap_run_sub_req /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/request.c:2477
+    #10 0x5381b1 in handle_include /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:1880
+    #11 0x53236b in send_parsed_content /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3717
+    #12 0x53236b in includes_filter /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3966
+    #13 0x47a067 in default_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/core.c:4820
+    #14 0x4accf3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:170
+    #15 0x4ad880 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:444
+    #16 0x49b917 in ap_run_sub_req /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/request.c:2477
+    #17 0x5381b1 in handle_include /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:1880
+    #18 0x53236b in send_parsed_content /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3717
+    #19 0x53236b in includes_filter /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3966
+    #20 0x45b96f in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/util_filter.c:609
+    #21 0x6ee3c5 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/mappers/mod_negotiation.c:3048
+    #22 0x4accf3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:170
+    #23 0x4ad880 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:444
+    #24 0x56752b in ap_internal_redirect /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_request.c:791
+    #25 0x567b55 in ap_die_r /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_request.c:212
+    #26 0x46c6bf in ap_read_request /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/protocol.c:1339
+    #27 0x55f42e in ap_process_http_async_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_core.c:146
+    #28 0x55f42e in ap_process_http_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_core.c:248
+    #29 0x4c6c73 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/connection.c:42
+    #30 0x71124d in process_socket /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:1048
+    #31 0x714a7f in worker_thread /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2122
+    #32 0x7f4ebd6a46f9 in start_thread (/lib64/libpthread.so.0+0x76f9)
+
+previously allocated by thread T50 here:
+    #0 0x7f4ec01cd772 in malloc (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x57772)
+    #1 0x7f4ebdf458c9 in pool_alloc memory/unix/apr_pools.c:1472
+    #2 0x7f4ebeb1acd0 in apr_brigade_pflatten buckets/apr_brigade.c:292
+    #3 0x533228 in send_parsed_content /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3602
+    #4 0x533228 in includes_filter /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3966
+    #5 0x45b96f in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/util_filter.c:609
+    #6 0x6ee3c5 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/mappers/mod_negotiation.c:3048
+    #7 0x4accf3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:170
+    #8 0x4ad880 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:444
+    #9 0x49b917 in ap_run_sub_req /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/request.c:2477
+    #10 0x5381b1 in handle_include /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:1880
+    #11 0x53236b in send_parsed_content /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3717
+    #12 0x53236b in includes_filter /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3966
+    #13 0x47a067 in default_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/core.c:4820
+    #14 0x4accf3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:170
+    #15 0x4ad880 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:444
+    #16 0x49b917 in ap_run_sub_req /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/request.c:2477
+    #17 0x5381b1 in handle_include /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:1880
+    #18 0x53236b in send_parsed_content /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3717
+    #19 0x53236b in includes_filter /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3966
+    #20 0x45b96f in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/util_filter.c:609
+    #21 0x6ee3c5 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/mappers/mod_negotiation.c:3048
+    #22 0x4accf3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:170
+    #23 0x4ad880 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:444
+    #24 0x56752b in ap_internal_redirect /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_request.c:791
+    #25 0x567b55 in ap_die_r /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_request.c:212
+    #26 0x46c6bf in ap_read_request /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/protocol.c:1339
+    #27 0x55f42e in ap_process_http_async_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_core.c:146
+    #28 0x55f42e in ap_process_http_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_core.c:248
+    #29 0x4c6c73 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/connection.c:42
+    #30 0x71124d in process_socket /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:1048
+    #31 0x714a7f in worker_thread /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2122
+    #32 0x7f4ebd6a46f9 in start_thread (/lib64/libpthread.so.0+0x76f9)
+
+Thread T51 created by T38 here:
+    #0 0x7f4ec0199d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x713735 in start_threads /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2312
+
+Thread T38 created by T0 here:
+    #0 0x7f4ec0199d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x43e9a0 in child_main /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2516
+
+Thread T50 created by T38 here:
+    #0 0x7f4ec0199d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x713735 in start_threads /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2312
+
+SUMMARY: AddressSanitizer: heap-use-after-free memory/unix/apr_pools.c:1961 pool_find
+Shadow bytes around the buggy address:
+  0x0c328003fbe0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c328003fbf0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c328003fc00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c328003fc10: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c328003fc20: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x0c328003fc30: fd[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328003fc40: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328003fc50: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328003fc60: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328003fc70: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328003fc80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Heap right redzone:      fb
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack partial redzone:   f4
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Contiguous container OOB:fc
+  ASan internal:           fe
+==6577==ABORTING

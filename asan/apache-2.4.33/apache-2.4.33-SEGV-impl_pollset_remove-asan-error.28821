@@ -1,0 +1,18 @@
+=================================================================
+==28821==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x7fa4b76ba4f4 sp 0x7ffd31537570 bp 0x7ffd31537590 T0)
+    #0 0x7fa4b76ba4f3 in impl_pollset_remove poll/unix/epoll.c:219
+    #1 0x712651 in disable_listensocks /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:470
+    #2 0x7126f2 in wakeup_listener /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:578
+    #3 0x71292c in signal_threads /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:627
+    #4 0x43e9f5 in child_main /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:2579
+    #5 0x7137c4 in make_child /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:2663
+    #6 0x71392a in startup_children /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:2687
+    #7 0x71577b in event_run /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:3032
+    #8 0x456c80 in ap_run_mpm /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm_common.c:94
+    #9 0x440a27 in main /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/main.c:818
+    #10 0x7fa4b68674df in __libc_start_main (/lib64/libc.so.6+0x204df)
+    #11 0x442169 in _start (/usr/sbin/apache2+0x442169)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV poll/unix/epoll.c:219 impl_pollset_remove
+==28821==ABORTING

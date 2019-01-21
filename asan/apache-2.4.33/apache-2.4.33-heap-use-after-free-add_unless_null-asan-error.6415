@@ -1,0 +1,20 @@
+=================================================================
+==6415==ERROR: AddressSanitizer: heap-use-after-free on address 0x60e0000b5998 at pc 0x7fd4e7175bf2 bp 0x7fd4b1f384a0 sp 0x7fd4b1f38490
+READ of size 8 at 0x60e0000b5998 thread T56
+    #0 0x7fd4e7175bf1 in apr_pool_is_ancestor memory/unix/apr_pools.c:2103
+    #1 0x7fd4e716115c in apr_table_addn tables/apr_tables.c:819
+    #2 0x4c0a1d in add_unless_null /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/util_script.c:91
+    #3 0x4c0a1d in ap_add_common_vars /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/util_script.c:211
+    #4 0x533cfd in includes_filter /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/filters/mod_include.c:3902
+    #5 0x45b88f in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/util_filter.c:609
+    #6 0x6eca95 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/mappers/mod_negotiation.c:3048
+    #7 0x4acbc3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/config.c:170
+    #8 0x4ad750 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/config.c:444
+    #9 0x56742b in ap_internal_redirect /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_request.c:772
+    #10 0x46d9f8 in ap_read_request /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/protocol.c:1405
+    #11 0x55f47e in ap_process_http_async_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_core.c:146
+    #12 0x55f47e in ap_process_http_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_core.c:248
+    #13 0x4c6b53 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/connection.c:42
+    #14 0x70f9dd in process_socket /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:1048
+    #15 0x71320f in worker_thread /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:2122
+    #16 0x7fd4e68d1686 in start_thread (/lib64/libpthread.so.0+0x7686)

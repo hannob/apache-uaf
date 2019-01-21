@@ -1,0 +1,30 @@
+=================================================================
+==13132==ERROR: AddressSanitizer: heap-use-after-free on address 0x6190001b7b88 at pc 0x7ff7905574e5 bp 0x7ff759448250 sp 0x7ff759448240
+READ of size 4 at 0x6190001b7b88 thread T56
+    #0 0x7ff7905574e4 in pool_find memory/unix/apr_pools.c:1961
+    #1 0x7ff790557a7b in apr_pool_walk_tree memory/unix/apr_pools.c:1219
+    #2 0x7ff790557b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #3 0x7ff790557b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #4 0x7ff790557b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #5 0x7ff790557b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #6 0x7ff790557b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #7 0x7ff790557b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #8 0x7ff79055a672 in apr_pool_find memory/unix/apr_pools.c:1979
+    #9 0x7ff79054617e in apr_table_addn tables/apr_tables.c:823
+    #10 0x4c062b in ap_add_common_vars /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/util_script.c:272
+    #11 0x533cfd in includes_filter /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/filters/mod_include.c:3902
+    #12 0x45b88f in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/util_filter.c:609
+    #13 0x6eca95 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/mappers/mod_negotiation.c:3048
+    #14 0x4acbc3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/config.c:170
+    #15 0x4ad750 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/config.c:444
+    #16 0x56742b in ap_internal_redirect /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_request.c:772
+    #17 0x46c25f in ap_read_request /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/protocol.c:1282
+    #18 0x55f47e in ap_process_http_async_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_core.c:146
+    #19 0x55f47e in ap_process_http_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_core.c:248
+    #20 0x4c6b53 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/connection.c:42
+    #21 0x70f9dd in process_socket /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:1048
+    #22 0x71320f in worker_thread /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:2122
+    #23 0x7ff78fcb6686 in start_thread (/lib64/libpthread.so.0+0x7686)
+    #24 0x7ff78f7f173e in __clone (/lib64/libc.so.6+0xf873e)
+
+0x6190001b7b88 is located 107271104985928 bytes inside==13132==AddressSanitizer: while reporting a bug found another one.Ignoring.

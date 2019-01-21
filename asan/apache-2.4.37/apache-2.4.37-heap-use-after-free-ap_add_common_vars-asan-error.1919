@@ -1,0 +1,123 @@
+=================================================================
+==1919==ERROR: AddressSanitizer: heap-use-after-free on address 0x61900020bdd0 at pc 0x7f2f4d3b2f5d bp 0x7f2f1f0362a0 sp 0x7f2f1f036290
+READ of size 8 at 0x61900020bdd0 thread T46
+    #0 0x7f2f4d3b2f5c in pool_find memory/unix/apr_pools.c:2239
+    #1 0x7f2f4d3b34cb in apr_pool_walk_tree memory/unix/apr_pools.c:1496
+    #2 0x7f2f4d3b355e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #3 0x7f2f4d3b355e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #4 0x7f2f4d3b355e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #5 0x7f2f4d3b355e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #6 0x7f2f4d3b355e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #7 0x7f2f4d3b355e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #8 0x7f2f4d3b355e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #9 0x7f2f4d3b5f12 in apr_pool_find memory/unix/apr_pools.c:2256
+    #10 0x7f2f4d3a0c21 in apr_table_addn tables/apr_tables.c:819
+    #11 0x4c2a6c in ap_add_common_vars /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/util_script.c:247
+    #12 0x5363fd in includes_filter /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/filters/mod_include.c:3903
+    #13 0x45d1af in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/util_filter.c:609
+    #14 0x6ee0a5 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/mappers/mod_negotiation.c:3048
+    #15 0x4af333 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/config.c:170
+    #16 0x4afec0 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/config.c:444
+    #17 0x569a6b in ap_internal_redirect /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_request.c:791
+    #18 0x56a095 in ap_die_r /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_request.c:212
+    #19 0x56c69e in ap_process_async_request /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_request.c:476
+    #20 0x561b27 in ap_process_http_async_connection /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_core.c:154
+    #21 0x561b27 in ap_process_http_connection /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_core.c:248
+    #22 0x4c9243 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/connection.c:42
+    #23 0x710f6d in process_socket /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:1049
+    #24 0x7143af in worker_thread /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:2082
+    #25 0x7f2f4cb09779 in start_thread (/lib64/libpthread.so.0+0x7779)
+    #26 0x7f2f4c637b2e in clone (/lib64/libc.so.6+0x102b2e)
+
+0x61900020bdd0 is located 336 bytes inside of 1040-byte region [0x61900020bc80,0x61900020c090)
+freed by thread T42 here:
+    #0 0x7f2f4f648171 in __interceptor_free (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x57171)
+    #1 0x7f2f4d3b4138 in pool_clear_debug memory/unix/apr_pools.c:1857
+    #2 0x7f2f4d3b397b in pool_destroy_debug memory/unix/apr_pools.c:1915
+    #3 0x681f30 in h2_blist_cleanup /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_bucket_beam.c:460
+    #4 0x6823da in beam_send_cleanup /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_bucket_beam.c:520
+    #5 0x682bb6 in beam_cleanup /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_bucket_beam.c:602
+    #6 0x674dab in h2_task_destroy /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_task.c:549
+    #7 0x630688 in stream_destroy_iter /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_mplx.c:333
+    #8 0x7f2f4d398d98 in apr_hash_do tables/apr_hash.c:542
+    #9 0x67a2a1 in h2_ihash_iter /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_util.c:283
+    #10 0x639d1d in purge_streams /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_mplx.c:351
+    #11 0x639d1d in h2_mplx_dispatch_master_events /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_mplx.c:1245
+    #12 0x65a0b6 in dispatch_master /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_session.c:2047
+    #13 0x65a0b6 in h2_session_process /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_session.c:2239
+    #14 0x622dc2 in h2_conn_run /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_conn.c:212
+    #15 0x62bfe2 in h2_h2_process_conn /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_h2.c:658
+    #16 0x4c9243 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/connection.c:42
+    #17 0x710f6d in process_socket /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:1049
+    #18 0x7143af in worker_thread /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:2082
+    #19 0x7f2f4cb09779 in start_thread (/lib64/libpthread.so.0+0x7779)
+    #20 0x7f2f4c637b2e in clone (/lib64/libc.so.6+0x102b2e)
+
+previously allocated by thread T34 here:
+    #0 0x7f2f4f648402 in malloc (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x57402)
+    #1 0x7f2f4d3b3319 in pool_alloc memory/unix/apr_pools.c:1749
+    #2 0x4523a6 in ap_make_full_path /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/util.c:2252
+    #3 0x4b580c in ap_open_htaccess /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/config.c:2175
+    #4 0x4af908 in ap_run_open_htaccess /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/config.c:176
+    #5 0x4b5bcc in ap_parse_htaccess /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/config.c:2214
+    #6 0x4950eb in ap_directory_walk /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/request.c:1026
+    #7 0x484dc8 in core_map_to_storage /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/core.c:4633
+    #8 0x491433 in ap_run_map_to_storage /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/request.c:79
+    #9 0x498cfa in ap_process_request_internal /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/request.c:221
+    #10 0x56cac7 in ap_process_async_request /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_request.c:451
+    #11 0x56d34a in ap_process_request /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_request.c:488
+    #12 0x6714c5 in h2_task_process_request /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_task.c:684
+    #13 0x6714c5 in h2_task_process_conn /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_task.c:732
+    #14 0x4c9243 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/connection.c:42
+    #15 0x675631 in h2_task_do /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_task.c:635
+    #16 0x680979 in slot_run /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_workers.c:231
+    #17 0x7f2f4cb09779 in start_thread (/lib64/libpthread.so.0+0x7779)
+    #18 0x7f2f4c637b2e in clone (/lib64/libc.so.6+0x102b2e)
+
+Thread T46 created by T38 here:
+    #0 0x7f2f4f6149aa in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x239aa)
+    #1 0x713255 in start_threads /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:2336
+
+Thread T38 created by T0 here:
+    #0 0x7f2f4f6149aa in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x239aa)
+    #1 0x714ebc in child_main /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:2541
+
+Thread T42 created by T38 here:
+    #0 0x7f2f4f6149aa in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x239aa)
+    #1 0x713255 in start_threads /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:2336
+
+Thread T34 created by T0 here:
+    #0 0x7f2f4f6149aa in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x239aa)
+    #1 0x6805dd in activate_slot /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http2/h2_workers.c:106
+
+SUMMARY: AddressSanitizer: heap-use-after-free memory/unix/apr_pools.c:2239 pool_find
+Shadow bytes around the buggy address:
+  0x0c3280039760: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c3280039770: 00 00 fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c3280039780: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c3280039790: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c32800397a0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+=>0x0c32800397b0: fd fd fd fd fd fd fd fd fd fd[fd]fd fd fd fd fd
+  0x0c32800397c0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c32800397d0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c32800397e0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c32800397f0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c3280039800: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Heap right redzone:      fb
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack partial redzone:   f4
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Contiguous container OOB:fc
+  ASan internal:           fe
+==1919==ABORTING

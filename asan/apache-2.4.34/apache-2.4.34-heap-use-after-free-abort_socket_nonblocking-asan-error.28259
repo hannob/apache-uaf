@@ -1,0 +1,82 @@
+=================================================================
+==28259==ERROR: AddressSanitizer: heap-use-after-free on address 0x607000046c18 at pc 0x7f53ddea0256 bp 0x7ffec5849990 sp 0x7ffec5849980
+READ of size 8 at 0x607000046c18 thread T0
+    #0 0x7f53ddea0255 in apr_socket_timeout_set network_io/unix/sockopt.c:86
+    #1 0x70f002 in abort_socket_nonblocking /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:526
+    #2 0x7141d9 in close_worker_sockets /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:557
+    #3 0x7141d9 in signal_threads /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:636
+    #4 0x43eb05 in child_main /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2581
+    #5 0x715004 in make_child /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2665
+    #6 0x716202 in perform_idle_server_maintenance /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2848
+    #7 0x716202 in server_main_loop /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2976
+    #8 0x716202 in event_run /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:3053
+    #9 0x456d60 in ap_run_mpm /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm_common.c:94
+    #10 0x440b37 in main /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/main.c:819
+    #11 0x7f53dd03cfcf in __libc_start_main (/lib64/libc.so.6+0x20fcf)
+    #12 0x442279 in _start (/usr/sbin/apache2+0x442279)
+
+0x607000046c18 is located 40 bytes inside of 80-byte region [0x607000046bf0,0x607000046c40)
+freed by thread T41 here:
+    #0 0x7f53e01154e1 in __interceptor_free (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x574e1)
+    #1 0x7f53dde8e659 in pool_clear_debug memory/unix/apr_pools.c:1576
+    #2 0x7f53dde8df2b in pool_destroy_debug memory/unix/apr_pools.c:1638
+    #3 0x7109fd in process_lingering_close /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:1504
+    #4 0x714a7f in worker_thread /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2122
+    #5 0x7f53dd5ec6f9 in start_thread (/lib64/libpthread.so.0+0x76f9)
+    #6 0x7f53dd11cd7e in clone (/lib64/libc.so.6+0x100d7e)
+
+previously allocated by thread T64 here:
+    #0 0x7f53e0115772 in malloc (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x57772)
+    #1 0x7f53dde8d77b in pool_alloc memory/unix/apr_pools.c:1463
+    #2 0x7f53dde8f74d in apr_pcalloc_debug memory/unix/apr_pools.c:1520
+    #3 0x7f53dde9d336 in alloc_socket network_io/unix/sockets.c:69
+    #4 0x7f53dde9dd48 in apr_socket_accept network_io/unix/sockets.c:246
+    #5 0x71b5bf in ap_unixd_accept /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/os/unix/unixd.c:303
+    #6 0x718ec9 in listener_thread /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:1888
+    #7 0x7f53dd5ec6f9 in start_thread (/lib64/libpthread.so.0+0x76f9)
+    #8 0x7f53dd11cd7e in clone (/lib64/libc.so.6+0x100d7e)
+
+Thread T41 created by T38 here:
+    #0 0x7f53e00e1d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x713735 in start_threads /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2312
+
+Thread T38 created by T0 here:
+    #0 0x7f53e00e1d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x43e9a0 in child_main /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2516
+
+Thread T64 created by T38 here:
+    #0 0x7f53e00e1d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x71388d in create_listener_thread /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2183
+    #2 0x71388d in start_threads /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2326
+
+SUMMARY: AddressSanitizer: heap-use-after-free network_io/unix/sockopt.c:86 apr_socket_timeout_set
+Shadow bytes around the buggy address:
+  0x0c0e80000d30: 00 00 00 00 fa fa fa fa 00 00 00 00 00 00 00 00
+  0x0c0e80000d40: 00 00 fa fa fa fa fd fd fd fd fd fd fd fd fd fd
+  0x0c0e80000d50: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 fa fa
+  0x0c0e80000d60: fa fa 00 00 00 00 00 00 00 00 00 00 fa fa fa fa
+  0x0c0e80000d70: 00 00 00 00 00 00 00 00 00 00 fa fa fa fa fd fd
+=>0x0c0e80000d80: fd fd fd[fd]fd fd fd fd fa fa fa fa 00 00 00 00
+  0x0c0e80000d90: 00 00 00 00 00 00 fa fa fa fa 00 00 00 00 00 00
+  0x0c0e80000da0: 00 00 00 00 fa fa fa fa fd fd fd fd fd fd fd fd
+  0x0c0e80000db0: fd fd fa fa fa fa 00 00 00 00 00 00 00 00 00 00
+  0x0c0e80000dc0: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fa fa
+  0x0c0e80000dd0: fa fa fd fd fd fd fd fd fd fd fd fd fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Heap right redzone:      fb
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack partial redzone:   f4
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Contiguous container OOB:fc
+  ASan internal:           fe
+==28259==ABORTING

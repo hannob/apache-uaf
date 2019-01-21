@@ -1,0 +1,70 @@
+=================================================================
+==15582==ERROR: AddressSanitizer: heap-use-after-free on address 0x611000033bc8 at pc 0x65c797 bp 0x7f86bfddb5a0 sp 0x7f86bfddb590
+WRITE of size 8 at 0x611000033bc8 thread T40
+==15582==AddressSanitizer: while reporting a bug found another one.Ignoring.
+==15582==AddressSanitizer: while reporting a bug found another one.Ignoring.
+==15582==AddressSanitizer: while reporting a bug found another one.Ignoring.
+    #0 0x65c796 in h2_stream_destroy /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/modules/http2/h2_stream.c:582
+    #1 0x62f5e3 in stream_destroy_iter /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/modules/http2/h2_mplx.c:336
+    #2 0x7f86e9eab6c8 in apr_hash_do tables/apr_hash.c:542
+    #3 0x675201 in h2_ihash_iter /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/modules/http2/h2_util.c:278
+    #4 0x635a1d in purge_streams /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/modules/http2/h2_mplx.c:344
+    #5 0x635a1d in h2_mplx_dispatch_master_events /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/modules/http2/h2_mplx.c:1233
+    #6 0x654bc8 in dispatch_master /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/modules/http2/h2_session.c:1967
+    #7 0x654bc8 in h2_session_process /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/modules/http2/h2_session.c:2167
+    #8 0x61f162 in h2_conn_run /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/modules/http2/h2_conn.c:222
+    #9 0x628378 in h2_h2_process_conn /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/modules/http2/h2_h2.c:659
+    #10 0x4c5103 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/server/connection.c:42
+    #11 0x70d81f in process_socket /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/server/mpm/event/event.c:1021
+    #12 0x70f413 in worker_thread /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/server/mpm/event/event.c:2014
+    #13 0x7f86e9623686 in start_thread (/lib64/libpthread.so.0+0x7686)
+    #14 0x7f86e915e73e in __clone (/lib64/libc.so.6+0xf873e)
+
+0x611000033bc8 is located 8 bytes inside of 200-byte region [0x611000033bc0,0x611000033c88)
+freed by thread T40 here:
+    #0 0x7f86ec14c4e1 in __interceptor_free (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x574e1)
+    #1 0x7f86e9ec5659 in pool_clear_debug memory/unix/apr_pools.c:1576
+
+previously allocated by thread T40 here:
+    #0 0x7f86ec14c772 in malloc (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x57772)
+    #1 0x7f86e9ec477b in pool_alloc memory/unix/apr_pools.c:1463
+
+Thread T40 created by T38 here:
+    #0 0x7f86ec118d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x70c0a5 in start_threads /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/server/mpm/event/event.c:2200
+
+Thread T38 created by T0 here:
+    #0 0x7f86ec118d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x43ca56 in child_main /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/server/mpm/event/event.c:2399
+
+SUMMARY: AddressSanitizer: heap-use-after-free /var/tmp/portage/www-servers/apache-2.4.29-r1/work/httpd-2.4.29/modules/http2/h2_stream.c:582 h2_stream_destroy
+Shadow bytes around the buggy address:
+  0x0c227fffe720: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c227fffe730: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c227fffe740: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c227fffe750: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c227fffe760: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fa fa
+=>0x0c227fffe770: fa fa fa fa fa fa fa fa fd[fd]fd fd fd fd fd fd
+  0x0c227fffe780: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c227fffe790: fd fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c227fffe7a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c227fffe7b0: 00 00 00 00 00 00 00 00 00 00 00 00 fa fa fa fa
+  0x0c227fffe7c0: fa fa fa fa fa fa fa fa 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Heap right redzone:      fb
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack partial redzone:   f4
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Contiguous container OOB:fc
+  ASan internal:           fe
+==15582==ABORTING

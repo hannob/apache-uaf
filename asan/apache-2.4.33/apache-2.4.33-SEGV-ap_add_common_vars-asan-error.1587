@@ -1,0 +1,34 @@
+=================================================================
+==1587==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x7fd4e717240b sp 0x7fd4bfbc4590 bp 0x7fd4e71723d0 T36)
+    #0 0x7fd4e717240a in pool_find memory/unix/apr_pools.c:1961
+    #1 0x7fd4e7172a7b in apr_pool_walk_tree memory/unix/apr_pools.c:1219
+    #2 0x7fd4e7172b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #3 0x7fd4e7172b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #4 0x7fd4e7172b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #5 0x7fd4e7172b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #6 0x7fd4e7175672 in apr_pool_find memory/unix/apr_pools.c:1979
+    #7 0x7fd4e7161151 in apr_table_addn tables/apr_tables.c:819
+    #8 0x4c0354 in ap_add_common_vars /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/util_script.c:249
+    #9 0x533cfd in includes_filter /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/filters/mod_include.c:3902
+    #10 0x45b88f in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/util_filter.c:609
+    #11 0x6eca95 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/mappers/mod_negotiation.c:3048
+    #12 0x4acbc3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/config.c:170
+    #13 0x4ad750 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/config.c:444
+    #14 0x56742b in ap_internal_redirect /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_request.c:772
+    #15 0x56a00e in ap_process_async_request /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_request.c:459
+    #16 0x56ac4a in ap_process_request /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_request.c:471
+    #17 0x66ff55 in h2_task_process_request /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_task.c:678
+    #18 0x66ff55 in h2_task_process_conn /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_task.c:725
+    #19 0x4c6b53 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/connection.c:42
+    #20 0x674161 in h2_task_do /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_task.c:635
+    #21 0x67f459 in slot_run /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_workers.c:231
+    #22 0x7fd4e68d1686 in start_thread (/lib64/libpthread.so.0+0x7686)
+    #23 0x7fd4e640c73e in __clone (/lib64/libc.so.6+0xf873e)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV memory/unix/apr_pools.c:1961 pool_find
+Thread T36 created by T0 here:
+    #0 0x7fd4e93c6d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x67f0bd in activate_slot /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_workers.c:106
+
+==1587==ABORTING

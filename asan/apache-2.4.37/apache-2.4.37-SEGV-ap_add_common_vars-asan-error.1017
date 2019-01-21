@@ -1,0 +1,38 @@
+=================================================================
+==1017==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x7f8510c14e5b sp 0x7f84dd960370 bp 0x7f8510c14e20 T53)
+    #0 0x7f8510c14e5a in pool_find memory/unix/apr_pools.c:2238
+    #1 0x7f8510c154cb in apr_pool_walk_tree memory/unix/apr_pools.c:1496
+    #2 0x7f8510c1555e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #3 0x7f8510c1555e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #4 0x7f8510c1555e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #5 0x7f8510c1555e in apr_pool_walk_tree memory/unix/apr_pools.c:1508
+    #6 0x7f8510c17f12 in apr_pool_find memory/unix/apr_pools.c:2256
+    #7 0x7f8510c02c4e in apr_table_addn tables/apr_tables.c:823
+    #8 0x4c2d33 in ap_add_common_vars /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/util_script.c:271
+    #9 0x5363fd in includes_filter /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/filters/mod_include.c:3903
+    #10 0x45d1af in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/util_filter.c:609
+    #11 0x6ee0a5 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/mappers/mod_negotiation.c:3048
+    #12 0x4af333 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/config.c:170
+    #13 0x4afec0 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/config.c:444
+    #14 0x569a6b in ap_internal_redirect /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_request.c:791
+    #15 0x56a095 in ap_die_r /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_request.c:212
+    #16 0x56c69e in ap_process_async_request /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_request.c:476
+    #17 0x561b27 in ap_process_http_async_connection /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_core.c:154
+    #18 0x561b27 in ap_process_http_connection /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/modules/http/http_core.c:248
+    #19 0x4c9243 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/connection.c:42
+    #20 0x710f6d in process_socket /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:1049
+    #21 0x7143af in worker_thread /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:2082
+    #22 0x7f851036b779 in start_thread (/lib64/libpthread.so.0+0x7779)
+    #23 0x7f850fe99b2e in clone (/lib64/libc.so.6+0x102b2e)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV memory/unix/apr_pools.c:2238 pool_find
+Thread T53 created by T38 here:
+    #0 0x7f8512e769aa in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x239aa)
+    #1 0x713255 in start_threads /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:2336
+
+Thread T38 created by T0 here:
+    #0 0x7f8512e769aa in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x239aa)
+    #1 0x714ebc in child_main /var/tmp/portage/www-servers/apache-2.4.37/work/httpd-2.4.37/server/mpm/event/event.c:2541
+
+==1017==ABORTING

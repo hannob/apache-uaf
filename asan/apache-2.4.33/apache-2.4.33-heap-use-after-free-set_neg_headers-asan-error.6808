@@ -1,0 +1,112 @@
+=================================================================
+==6808==ERROR: AddressSanitizer: heap-use-after-free on address 0x61900033c788 at pc 0x7fa4b76a54e5 bp 0x7fa480e5d350 sp 0x7fa480e5d340
+READ of size 4 at 0x61900033c788 thread T58
+    #0 0x7fa4b76a54e4 in pool_find memory/unix/apr_pools.c:1961
+    #1 0x7fa4b76a5a7b in apr_pool_walk_tree memory/unix/apr_pools.c:1219
+    #2 0x7fa4b76a5b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #3 0x7fa4b76a5b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #4 0x7fa4b76a5b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #5 0x7fa4b76a5b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #6 0x7fa4b76a5b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #7 0x7fa4b76a5b0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #8 0x7fa4b76a8672 in apr_pool_find memory/unix/apr_pools.c:1979
+    #9 0x7fa4b7693760 in apr_table_mergen tables/apr_tables.c:746
+    #10 0x6e5e3e in set_neg_headers /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/mappers/mod_negotiation.c:2603
+    #11 0x6e6ca2 in do_negotiation /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/mappers/mod_negotiation.c:2914
+    #12 0x6ec581 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/mappers/mod_negotiation.c:2977
+    #13 0x4acbc3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/config.c:170
+    #14 0x4ad750 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/config.c:444
+    #15 0x56742b in ap_internal_redirect /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_request.c:772
+    #16 0x46c25f in ap_read_request /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/protocol.c:1282
+    #17 0x55f47e in ap_process_http_async_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_core.c:146
+    #18 0x55f47e in ap_process_http_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http/http_core.c:248
+    #19 0x4c6b53 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/connection.c:42
+    #20 0x70fa0d in process_socket /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:1048
+    #21 0x71323f in worker_thread /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:2122
+    #22 0x7fa4b6e04686 in start_thread (/lib64/libpthread.so.0+0x7686)
+    #23 0x7fa4b693f73e in __clone (/lib64/libc.so.6+0xf873e)
+
+0x61900033c788 is located 8 bytes inside of 1040-byte region [0x61900033c780,0x61900033cb90)
+freed by thread T50 here:
+    #0 0x7fa4b992d4e1 in __interceptor_free (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x574e1)
+    #1 0x7fa4b76a66e8 in pool_clear_debug memory/unix/apr_pools.c:1580
+    #2 0x7fa4b76a5f2b in pool_destroy_debug memory/unix/apr_pools.c:1638
+    #3 0x7fa4b76a6277 in pool_clear_debug memory/unix/apr_pools.c:1550
+    #4 0x7fa4b76a5f2b in pool_destroy_debug memory/unix/apr_pools.c:1638
+    #5 0x7fa4b76a6277 in pool_clear_debug memory/unix/apr_pools.c:1550
+    #6 0x7fa4b76a5f2b in pool_destroy_debug memory/unix/apr_pools.c:1638
+    #7 0x65d269 in h2_session_pre_close /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_session.c:2286
+    #8 0x623a5b in h2_conn_pre_close /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_conn.c:253
+    #9 0x4c7113 in ap_run_pre_close_connection /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/connection.c:44
+    #10 0x4c73b8 in ap_prep_lingering_close /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/connection.c:101
+    #11 0x4c740b in ap_start_lingering_close /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/connection.c:129
+    #12 0x70f8e9 in start_lingering_close_blocking /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:804
+    #13 0x70f8e9 in process_socket /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:1208
+    #14 0x71323f in worker_thread /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:2122
+    #15 0x7fa4b6e04686 in start_thread (/lib64/libpthread.so.0+0x7686)
+    #16 0x7fa4b693f73e in __clone (/lib64/libc.so.6+0xf873e)
+
+previously allocated by thread T29 here:
+    #0 0x7fa4b992d772 in malloc (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x57772)
+    #1 0x7fa4b76a58c9 in pool_alloc memory/unix/apr_pools.c:1472
+    #2 0x7fa4b76a774d in apr_pcalloc_debug memory/unix/apr_pools.c:1520
+    #3 0x7fa4b76a5007 in apr_thread_mutex_create locks/unix/thread_mutex.c:50
+    #4 0x7fa4b76a7c90 in apr_pool_create_ex_debug memory/unix/apr_pools.c:1761
+    #5 0x623d3b in h2_slave_create /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_conn.c:280
+    #6 0x630afb in next_stream_task /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_mplx.c:721
+    #7 0x637be7 in h2_mplx_pop_task /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_mplx.c:767
+    #8 0x67f914 in slot_pull_task /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_workers.c:158
+    #9 0x67f914 in mplx_peek /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_workers.c:176
+    #10 0x6773d7 in fifo_peek /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_util.c:785
+    #11 0x67f33c in get_next /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_workers.c:195
+    #12 0x67f33c in slot_run /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_workers.c:228
+    #13 0x7fa4b6e04686 in start_thread (/lib64/libpthread.so.0+0x7686)
+    #14 0x7fa4b693f73e in __clone (/lib64/libc.so.6+0xf873e)
+
+Thread T58 created by T38 here:
+    #0 0x7fa4b98f9d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x711ef5 in start_threads /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:2312
+
+Thread T38 created by T0 here:
+    #0 0x7fa4b98f9d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x43e892 in child_main /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:2514
+
+Thread T50 created by T38 here:
+    #0 0x7fa4b98f9d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x711ef5 in start_threads /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/server/mpm/event/event.c:2312
+
+Thread T29 created by T0 here:
+    #0 0x7fa4b98f9d1a in pthread_create (/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libasan.so.1+0x23d1a)
+    #1 0x67f0bd in activate_slot /var/tmp/portage/www-servers/apache-2.4.33/work/httpd-2.4.33/modules/http2/h2_workers.c:106
+
+SUMMARY: AddressSanitizer: heap-use-after-free memory/unix/apr_pools.c:1961 pool_find
+Shadow bytes around the buggy address:
+  0x0c328005f8a0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328005f8b0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328005f8c0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328005f8d0: fd fd fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c328005f8e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x0c328005f8f0: fd[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328005f900: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328005f910: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328005f920: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328005f930: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c328005f940: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Heap right redzone:      fb
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack partial redzone:   f4
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Contiguous container OOB:fc
+  ASan internal:           fe
+==6808==ABORTING

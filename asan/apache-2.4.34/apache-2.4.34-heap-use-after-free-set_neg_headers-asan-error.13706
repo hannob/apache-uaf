@@ -1,0 +1,45 @@
+=================================================================
+==13706==ERROR: AddressSanitizer: heap-use-after-free on address 0x619000271a90 at pc 0x7f53dde8d50d bp 0x7f53b44c07d0 sp 0x7f53b44c07c0
+READ of size 8 at 0x619000271a90 thread T39
+    #0 0x7f53dde8d50c in pool_find memory/unix/apr_pools.c:1962
+    #1 0x7f53dde8da7b in apr_pool_walk_tree memory/unix/apr_pools.c:1219
+    #2 0x7f53dde8db0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #3 0x7f53dde8db0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #4 0x7f53dde8db0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #5 0x7f53dde8db0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #6 0x7f53dde8db0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #7 0x7f53dde8db0e in apr_pool_walk_tree memory/unix/apr_pools.c:1231
+    #8 0x7f53dde90672 in apr_pool_find memory/unix/apr_pools.c:1979
+    #9 0x7f53dde7b760 in apr_table_mergen tables/apr_tables.c:746
+    #10 0x6e792e in set_neg_headers /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/mappers/mod_negotiation.c:2603
+    #11 0x6e8792 in do_negotiation /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/mappers/mod_negotiation.c:2914
+    #12 0x6ede81 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/mappers/mod_negotiation.c:2977
+    #13 0x4accf3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:170
+    #14 0x4ad880 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:444
+    #15 0x49b917 in ap_run_sub_req /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/request.c:2477
+    #16 0x5381b1 in handle_include /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:1880
+    #17 0x53236b in send_parsed_content /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3717
+    #18 0x53236b in includes_filter /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3966
+    #19 0x47a067 in default_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/core.c:4820
+    #20 0x4accf3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:170
+    #21 0x4ad880 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:444
+    #22 0x49b917 in ap_run_sub_req /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/request.c:2477
+    #23 0x5381b1 in handle_include /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:1880
+    #24 0x53236b in send_parsed_content /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3717
+    #25 0x53236b in includes_filter /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/filters/mod_include.c:3966
+    #26 0x45b96f in ap_pass_brigade_fchk /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/util_filter.c:609
+    #27 0x6ee3c5 in handle_map_file /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/mappers/mod_negotiation.c:3048
+    #28 0x4accf3 in ap_run_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:170
+    #29 0x4ad880 in ap_invoke_handler /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/config.c:444
+    #30 0x56752b in ap_internal_redirect /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_request.c:791
+    #31 0x567b55 in ap_die_r /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_request.c:212
+    #32 0x46de58 in ap_read_request /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/protocol.c:1462
+    #33 0x55f42e in ap_process_http_async_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_core.c:146
+    #34 0x55f42e in ap_process_http_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/modules/http/http_core.c:248
+    #35 0x4c6c73 in ap_run_process_connection /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/connection.c:42
+    #36 0x71124d in process_socket /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:1048
+    #37 0x714a7f in worker_thread /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2122
+    #38 0x7f53dd5ec6f9 in start_thread (/lib64/libpthread.so.0+0x76f9)
+    #39 0x7f53dd11cd7e in clone (/lib64/libc.so.6+0x100d7e)
+
+==13706==AddressSanitizer: while reporting a bug found another one.Ignoring.

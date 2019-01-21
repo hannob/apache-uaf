@@ -1,0 +1,18 @@
+=================================================================
+==2350==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x7f39bd59c4f4 sp 0x7ffcf6e36790 bp 0x7ffcf6e367b0 T0)
+    #0 0x7f39bd59c4f3 in impl_pollset_remove poll/unix/epoll.c:219
+    #1 0x713e91 in disable_listensocks /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:470
+    #2 0x713f32 in wakeup_listener /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:578
+    #3 0x71416c in signal_threads /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:627
+    #4 0x43eb05 in child_main /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2581
+    #5 0x715004 in make_child /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2665
+    #6 0x71516a in startup_children /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:2689
+    #7 0x716fbb in event_run /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm/event/event.c:3034
+    #8 0x456d60 in ap_run_mpm /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/mpm_common.c:94
+    #9 0x440b37 in main /var/tmp/portage/www-servers/apache-2.4.34-r1/work/httpd-2.4.34/server/main.c:819
+    #10 0x7f39bc736fcf in __libc_start_main (/lib64/libc.so.6+0x20fcf)
+    #11 0x442279 in _start (/usr/sbin/apache2+0x442279)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV poll/unix/epoll.c:219 impl_pollset_remove
+==2350==ABORTING
